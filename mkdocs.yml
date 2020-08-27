@@ -1,0 +1,5 @@
+site_name: PasriDevelopment
+use_directory_urls: false
+theme:  readthedocs
+
+    
