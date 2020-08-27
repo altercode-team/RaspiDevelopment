@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Настройка RO-RW в Raspbian Buster - PasriDevelopment</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 RO-RW \u0432 Raspbian Buster";
+    var mkdocs_page_input_path = "SettingUpRaspberry4.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> PasriDevelopment</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to MkDocs</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="SettingUpRaspberry4.html">Настройка RO-RW в Raspbian Buster</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">Скрипт</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">Подробнее</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="about.html">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">PasriDevelopment</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Настройка RO-RW в Raspbian Buster</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="ro-rw-raspbian-buster">Настройка RO-RW в Raspbian Buster</h1>
+<h2 id="_1">Скрипт</h2>
+<p>Для быстрой настройки можно воспользоваться скриптом "setup.sh" по ссылке https://github.com/Turonk/raspberry_read_only . Скрипт необходимо запускать под root-правами. </p>
+<h2 id="_2">Подробнее</h2>
+<ul>
+<li>
+<p><b>Необходимо обновить список пакетов:</b></p>
+<pre><code>sudo apt update
+</code></pre>
+</li>
+<li>
+<p><b>Устанавливаем BusyBox и NTP</b></p>
+<pre><code>apt install -y busybox-syslogd ntp
+</code></pre>
+</li>
+<li>
+<p><b>Удяляем лишнии утилиты (Ключ -y означает на все запросы консоли отвечать "yes", Ключ -purge - удаление всех данных связанных с приложением):</b></p>
+<pre><code>apt remove -y --purge anacron logrotate dphys-swapfile rsyslog
+</code></pre>
+</li>
+<li>
+<p><b>Изменяем параметры загрузки:</b></p>
+<ul>
+<li>
+<p><i>Сначала делаем backup cmdline.txt</i></p>
+<pre><code>cp /boot/cmdline.txt /boot/cmdline.txt.backup
+</code></pre>
+</li>
+<li>
+<p><i>Получаем в переменную uuid универсальный уникальный индентификатор раздела, в котором находится etc/fstab (| - перенаправление вывода одной команды на вход другой)</i></p>
+<pre><code>uuid=`grep '/ ' /etc/fstab | awk -F'[=]' '{print $2}' | awk '{print $1}'`
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><b>Перемещаем resolv.conf в tmpfs(Во временную файловую систему)</b></p>
+<ul>
+<li>
+<p><i>Сначала перемещаем /etc/resolv.conf в /tmp/dhcpcd.resolv.conf</i></p>
+<pre><code>mv /etc/resolv.conf /tmp/dhcpcd.resolv.conf
+</code></pre>
+</li>
+<li>
+<p><i>Затем создаем ярлык в /etc/resolv.conf на файл /tmp/dhcpcd.resolv.conf</i></p>
+<pre><code>ln -s /tmp/dhcpcd.resolv.conf /etc/resolv.conf
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><b>Перемещаем pid- и дргуих файлов в tmpfs(Во временную файловую систему)</b></p>
+<ul>
+<li><i>Сначала удаляем /var/lib/systemd/random-seed, затем, если удаление прошло успешно создаем символическую ссылку /var/lib/systemd/random-seed на файл /tmp/random-seed (&amp;&amp; - Используется для выполнения операции, если предыдущая завершилась успешно. \ - Когда обратный слэш указывается последним во вводимой строке, оболочка интерпретирует его как знак продолжения строки. В этом случае она удаляет следующий далее знак новой строки, не интерпретируя его как разделитель аргументов, как будто его вообще не было:)</i><pre><code>rm /var/lib/systemd/random-seed &amp;&amp; \
+ln -s /tmp/random-seed /var/lib/systemd/random-seed
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><b>Редактируем файлы</b>          </p>
+<ul>
+<li>
+<p><i>Делаем backup файла /lib/systemd/system/systemd-random-seed.service</i></p>
+<pre><code>cp /lib/systemd/system/systemd-random-seed.service /lib/systemd/system/systemd-random-seed.service.backup
+</code></pre>
+</li>
+<li>
+<p><i>Заменяем содержимое файла /lib/systemd/system/systemd-random-seed.service (cat &lt;&lt; EOF ... EOF - позволяет вводить в файл множество строк)</i></p>
+<pre><code>cat &gt; /lib/systemd/system/systemd-random-seed.service &lt;&lt; EOF            
+[Unit]
+Description=Load/Save Random Seed
+Documentation=man:systemd-random-seed.service(8) man:random(4)
+DefaultDependencies=no
+RequiresMountsFor=/var/lib/systemd/random-seed
+Conflicts=shutdown.target
+After=systemd-remount-fs.service
+Before=sysinit.target shutdown.target
+ConditionVirtualization=!container
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStartPre=/bin/echo '' &gt;/tmp/random-seed
+ExecStart=/lib/systemd/systemd-random-seed load
+ExecStop=/lib/systemd/systemd-random-seed save
+TimeoutSec=30s
+EOF
+</code></pre>
+</li>
+<li>
+<p><i>Делаем backup файла /etc/cron.hourly/fake-hwclock</i></p>
+<pre><code>cp /etc/cron.hourly/fake-hwclock /etc/cron.hourly/fake-hwclock.backup
+</code></pre>
+</li>
+<li>
+<p><i>Заменяем содержимое файла /etc/cron.hourly/fake-hwclock (cat &lt;&lt; EOF ... EOF - позволяет вводить в файл множество строк)</i>        </p>
+<pre><code>cat &gt; /etc/cron.hourly/fake-hwclock &lt;&lt; EOF
+# Простой скрипт - периодически сохраняет текущие часы, для предотвращения 
+# сброса времени при сбое питания.           
+if (command -v fake-hwclock &gt;/dev/null 2&gt;&amp;1) ; then
+  ro=$(mount | sed -n -e "s/^\/dev\/.* on \/ .*(\(r[w|o]\).*/\1/p")
+  if [ "$ro" = "ro" ]; then
+    mount -o remount,rw /
+  fi
+  fake-hwclock save
+  if [ "$ro" = "ro" ]; then
+    mount -o remount,ro /
+  fi
+fi
+EOF
+</code></pre>
+</li>
+<li>
+<p><i>Меняем содержимое файла /etc/ntp.conf</i></p>
+<pre><code>sed -i.bak '/driftfile/c\driftfile /tmp\/ntp.drift' /etc/ntp.conf
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><b>Настройка tmpfs(временная файловая система) для рабочего стола</b></p>
+<ul>
+<li>
+<p><i>Создание(-fs означает, что если ссылка уже существует, то "принудительно" обновит ссылку) символической ссылки /home/pi/.Xauthority на файл /tmp/.Xauthority</i></p>
+<pre><code>ln -fs /tmp/.Xauthority /home/pi/.Xauthority
+</code></pre>
+</li>
+<li>
+<p><i>Создание(-fs означает, что если ссылка уже существует, то "принудительно" обновит ссылку) символической ссылки /home/pi/.xsession-errors на файл /tmp/.xsession-errors</i></p>
+<pre><code>ln -fs /tmp/.xsession-errors /home/pi/.xsession-errors
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><b>Настройка файловой системы на read-only в fstab</b></p>
+<ul>
+<li><i>Если в файле /etc/fstab /boot и ext4 не в ro, то устанавливаем. И конец файла /etc/fstab добавить папки (/tmp, /var/log, /var/tmp, /var/lib/dhcpcd5) в tmpfs</i><pre><code>#Если количество "ro" в файле /etc/fstab равно нулю то:
+if [ 0 -eq $( grep -c ',ro' /etc/fstab ) ]; then
+    sed -i.bak "/boot/ s/defaults/defaults,ro/g" /etc/fstab
+    sed -i "/ext4/ s/defaults/defaults,ro/g" /etc/fstab
+
+    echo "
+    tmpfs           /tmp             tmpfs   nosuid,nodev         0       0
+    tmpfs           /var/log         tmpfs   nosuid,nodev         0       0
+    tmpfs           /var/tmp         tmpfs   nosuid,nodev         0       0
+    tmpfs           /var/lib/dhcpcd5 tmpfs   nosuid,nodev         0       0
+    " &gt;&gt; /etc/fstab
+fi
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><b>Модифицируем bashrc</b></p>
+<ul>
+<li><i>Если в /etc/bash.bashrc нет строки "mount -o remount" то данные из ./bash.bashrc.addon записать в конец /etc/bash.bashrc</i><pre><code>if [ 0 -eq $( grep -c 'mount -o remount' /etc/bash.bashrc ) ]; then
+    cat ./bash.bashrc.addon &gt;&gt; /etc/bash.bashrc
+fi
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><b>Добавляем /etc/bash.bash_logout</b></p>
+<ul>
+<li>
+<p><i>Создаем bash.bash_logout, если он есть, то обновит файл до текущего времени</i></p>
+<pre><code>touch /etc/bash.bash_logout
+</code></pre>
+</li>
+<li>
+<p><i>Если в /etc/bash.bash_logout нет строки "mount -o remount" то данные из ./bash.bash_logout.addon записать в конец /etc/bash.bash_logout</i></p>
+<pre><code>if [ 0 -eq $( grep -c 'mount -o remount' /etc/bash.bashrc ) ]; then
+    cat ./bash.bashrc.addon &gt;&gt; /etc/bash.bashrc
+fi
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><b>Найстройка ядра на автоматическую перезагрузку при ?ошибке?(Configuring kernel to auto reboot on ?panic?.)</b>     </p>
+<ul>
+<li><i>Устанавливаем значение в kernel.panic и записываем в файл /etc/sysctl.d/01-panic.conf</i><pre><code>echo "kernel.panic = 10" &gt; /etc/sysctl.d/01-panic.conf
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><b>Отключение apt-daily и apt-daily-upgrade service</b>       </p>
+<pre><code>    #apt-daily.timer – ежедневный таймер службы для скачивания новых пакетов
+    #apt-daily-upgrade.timer – ежедневный таймер службы для обновления и очистки пакетов
+    #apt-daily.service – непосредственно запускает скачивание новых пакетов (команда #/usr/lib/apt/apt.systemd.daily update), вызывается таймером 
+    #apt-daily-upgrade.service – непосредственно запускает установку новых пакетов и очистку кэша (команда #/usr/lib/apt/apt.systemd.daily install), вызывается таймером
+
+    systemctl disable apt-daily.service
+    systemctl disable apt-daily.timer
+    systemctl disable apt-daily-upgrade.service
+    systemctl disable apt-daily-upgrade.timer
+</code></pre>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="about.html" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to MkDocs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="about.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
