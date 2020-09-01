@@ -9,15 +9,19 @@
 		sudo apt-get install gparted
 		sudo gparted
 		
-* <b>С помощью програмыы GParted создаем новый раздел</b>
+* <b>С помощью программы GParted создаем новый раздел</b>
 
 	* Демонтируем rootfs раздел. Для этого нажимаем на него правой кнопкой мыши, затем выбираем  "Unmount" и оставляем для него 10Гб
 	
 	* Выбираем в меню "Partition -> New" и создаем новый раздел
 	
-* <b>Переставляем флешку в raspberry 4 и добавляем в ytc/fstab строку:</b>
+* <b>Переставляем флешку в raspberry 4 и добавляем в etc/fstab строку:</b>
 
 		PARTUUID=76661929-03  /home/pi/writefolder       ext4    defaults,noatime     0       2
+		
+* <b>И даем полные права на папку</b>
+
+			sudo chmod 1775 home/pi/writefolder
 		
 * <b>Для переноса ПО Запускаем старый аппарат и с него запускаем скрипт:</b>
 
@@ -34,7 +38,7 @@
 		
 ## USB
 
-* <b>Для монтирования флешки в /home/pi/writefolder/usb в файл ytc/fstab нужно записать строку:</b>
+* <b>Для монтирования флешки в /home/pi/writefolder/usb в файл etc/fstab нужно записать строку:</b>
 
 		/dev/sda1 /home/pi/writefolder/usb/mntusb	 auto 	 rw,nofail,uid=pi,gid=pi,noatime 0       0
 		
