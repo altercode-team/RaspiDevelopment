@@ -113,7 +113,7 @@ sudo gparted
 </code></pre>
 </li>
 <li>
-<p><b>С помощью програмыы GParted создаем новый раздел</b></p>
+<p><b>С помощью программы GParted создаем новый раздел</b></p>
 <ul>
 <li>
 <p>Демонтируем rootfs раздел. Для этого нажимаем на него правой кнопкой мыши, затем выбираем  "Unmount" и оставляем для него 10Гб</p>
@@ -124,8 +124,13 @@ sudo gparted
 </ul>
 </li>
 <li>
-<p><b>Переставляем флешку в raspberry 4 и добавляем в ytc/fstab строку:</b></p>
+<p><b>Переставляем флешку в raspberry 4 и добавляем в etc/fstab строку:</b></p>
 <pre><code>PARTUUID=76661929-03  /home/pi/writefolder       ext4    defaults,noatime     0       2
+</code></pre>
+</li>
+<li>
+<p><b>И даем полные права на папку</b></p>
+<pre><code>    sudo chmod 1775 home/pi/writefolder
 </code></pre>
 </li>
 <li>
@@ -145,7 +150,7 @@ rsync -rt --recursive -O $sourceDir pi@$ip:$deployDir
 </ul>
 <h2 id="usb">USB</h2>
 <ul>
-<li><b>Для монтирования флешки в /home/pi/writefolder/usb в файл ytc/fstab нужно записать строку:</b><pre><code>/dev/sda1 /home/pi/writefolder/usb/mntusb    auto    rw,nofail,uid=pi,gid=pi,noatime 0       0
+<li><b>Для монтирования флешки в /home/pi/writefolder/usb в файл etc/fstab нужно записать строку:</b><pre><code>/dev/sda1 /home/pi/writefolder/usb/mntusb    auto    rw,nofail,uid=pi,gid=pi,noatime 0       0
 </code></pre>
 </li>
 </ul>
