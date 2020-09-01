@@ -1,4 +1,4 @@
-# Welcome to MkDocs
+# Welkome
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
@@ -11,4 +11,3 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Project layout
 
-	hgfhdfghfdghdfg

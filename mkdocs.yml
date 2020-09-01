@@ -1,4 +1,9 @@
-site_name: PasriDevelopment
+site_name: RaspiDevelopment
+nav: 
+    - Главная: 'index.md'
+    - Raspbian: 
+        - 'RORW_Raspberry4.md' 
+        - 'WriteFolder.md'
 use_directory_urls: false
 theme:  readthedocs
 
