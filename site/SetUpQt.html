@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Главная - RaspiDevelopment</title>
+  <title>Настройка Qt 5 - RaspiDevelopment</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u0413\u043b\u0430\u0432\u043d\u0430\u044f";
-    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_name = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 Qt 5";
+    var mkdocs_page_input_path = "SetUpQt.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -47,23 +47,17 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="index.html">Главная</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#project-layout">Project layout</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="index.html">Главная</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Raspbian</span></p>
-                <ul>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="RORW_Raspberry4.html">Настройка RO-RW в Raspbian Buster</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="WriteFolder.html">Настройка WriteFolder и USB</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="SetUpQt.html">Настройка Qt 5</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="SetUpQt.html">Настройка Qt 5</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="SetUpBluetooth.html">Настройка BlueZ(Bluetooth)</a>
                     </li>
@@ -88,8 +82,12 @@
     <li><a href=".">Docs</a> &raquo;</li>
     
       
+        
+          <li>Raspbian &raquo;</li>
+        
+      
     
-    <li>Главная</li>
+    <li>Настройка Qt 5</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -100,16 +98,25 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="welkome">Welkome</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+                <p># Настройка Qt 5</p>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li>
+<p><b>Устанавливаем Qt 5. Для этого вводим команды:</b></p>
+<pre><code>sudo apt-get install qt5-default
+sudo apt-get install qtcreator
+</code></pre>
+</li>
+<li>
+<p><b>Докачиваем библиотеки</b></p>
+<pre><code>apt-get install build-essential libfontconfig1-dev libdbus-1-dev libfreetype6-dev libicu-dev libinput-dev libxkbcommon-dev libsqlite3-dev libssl-dev libpng-dev libjpeg-dev libglib2.0-dev libraspberrypi-dev
+sudo apt install libqt5bluetooth5
+
+sudo apt-get update --fix-missing
+apt-get install qtconnectivity5-dev
+sudo apt-get install qtconnectivity5-dev
+</code></pre>
+</li>
 </ul>
-<h2 id="project-layout">Project layout</h2>
               
             </div>
           </div>
@@ -117,8 +124,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="RORW_Raspberry4.html" class="btn btn-neutral float-right" title="Настройка RO-RW в Raspbian Buster">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="SetUpBluetooth.html" class="btn btn-neutral float-right" title="Настройка BlueZ(Bluetooth)">Next <span class="icon icon-circle-arrow-right"></span></a>
       
+      
+        <a href="WriteFolder.html" class="btn btn-neutral" title="Настройка WriteFolder и USB"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -144,8 +153,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
+        <span><a href="WriteFolder.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-        <span style="margin-left: 15px"><a href="RORW_Raspberry4.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+        <span style="margin-left: 15px"><a href="SetUpBluetooth.html" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

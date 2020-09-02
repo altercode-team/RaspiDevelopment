@@ -63,6 +63,10 @@
     </li>
     </ul>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="SetUpQt.html">Настройка Qt 5</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="SetUpBluetooth.html">Настройка BlueZ(Bluetooth)</a>
+                    </li>
                 </ul>
       </div>
     </div>
@@ -150,8 +154,13 @@ rsync -rt --recursive -O $sourceDir pi@$ip:$deployDir
 </ul>
 <h2 id="usb">USB</h2>
 <ul>
-<li><b>Для монтирования флешки в /home/pi/writefolder/usb в файл etc/fstab нужно записать строку:</b><pre><code>/dev/sda1 /home/pi/writefolder/usb/mntusb    auto    rw,nofail,uid=pi,gid=pi,noatime 0       0
+<li>
+<p><b>Для монтирования флешки в /home/pi/writefolder/usb в файл etc/fstab нужно записать строку:</b></p>
+<pre><code>/dev/sda1 /home/pi/writefolder/usb/mntusb    auto    rw,nofail,uid=pi,gid=pi,noatime 0       0
 </code></pre>
+</li>
+<li>
+<p><b>Затем необходимо убрать все галочки в "pcmanfm". Для этого: Edit -&gt; Preferences -&gt; Volume Management.</b></p>
 </li>
 </ul>
               
@@ -160,6 +169,8 @@ rsync -rt --recursive -O $sourceDir pi@$ip:$deployDir
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SetUpQt.html" class="btn btn-neutral float-right" title="Настройка Qt 5">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="RORW_Raspberry4.html" class="btn btn-neutral" title="Настройка RO-RW в Raspbian Buster"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -190,6 +201,8 @@ rsync -rt --recursive -O $sourceDir pi@$ip:$deployDir
       
         <span><a href="RORW_Raspberry4.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
+      
+        <span style="margin-left: 15px"><a href="SetUpQt.html" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

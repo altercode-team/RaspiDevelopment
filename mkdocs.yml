@@ -4,6 +4,8 @@ nav:
     - Raspbian: 
         - 'RORW_Raspberry4.md' 
         - 'WriteFolder.md'
+        - 'SetUpQt.md'
+        - 'SetUpBluetooth.md'
 use_directory_urls: false
 theme:  readthedocs
 

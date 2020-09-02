@@ -42,3 +42,30 @@
 
 		/dev/sda1 /home/pi/writefolder/usb/mntusb	 auto 	 rw,nofail,uid=pi,gid=pi,noatime 0       0
 		
+* <b>Затем необходимо убрать все галочки в "pcmanfm". Для этого: Edit -> Preferences -> Volume Management.</b>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
