@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Главная - RaspiDevelopment</title>
+  <title>SetUpBluetooth - RaspiDevelopment</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u0413\u043b\u0430\u0432\u043d\u0430\u044f";
-    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_name = "SetUpBluetooth";
+    var mkdocs_page_input_path = "SetUpBluetooth.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -47,25 +47,25 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="index.html">Главная</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#project-layout">Project layout</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="index.html">Главная</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Raspbian</span></p>
-                <ul>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="RORW_Raspberry4.html">Настройка RO-RW в Raspbian Buster</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="WriteFolder.html">Настройка WriteFolder и USB</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="SetUpQt.html">Настройка Qt 5</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="SetUpBluetooth.html">SetUpBluetooth</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="SetUpBluetooth.html">SetUpBluetooth</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">Скачать исходный код</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">Запуск / остановка / включение / отключение службы</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
       </div>
@@ -88,8 +88,12 @@
     <li><a href=".">Docs</a> &raquo;</li>
     
       
+        
+          <li>Raspbian &raquo;</li>
+        
+      
     
-    <li>Главная</li>
+    <li>SetUpBluetooth</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -100,16 +104,78 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="welkome">Welkome</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+                <h1 id="bluezbluetooth">Настройка BlueZ(Bluetooth)</h1>
+<h2 id="_1">Скачать исходный код</h2>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li>
+<p>Получите ссылку на последнюю версию BlueZ с http://www.bluez.org/download/ и загрузите ее:</p>
+<pre><code>    wget http://www.kernel.org/pub/linux/bluetooth/bluez-5.43.tar.xz
+</code></pre>
+</li>
+<li>
+<p>Затем распакуйте его с помощью</p>
+<pre><code>    tar xvf bluez-5.43.tar.xz
+</code></pre>
+</li>
+<li>
+<p>Сменить каталог:</p>
+<pre><code>    cd bluez-5.43 /
+</code></pre>
+</li>
+<li>
+<p>Затем скопируйте необходимые пакеты:</p>
+<pre><code>    sudo apt-get update 
+    sudo apt-get install -y libusb-dev libdbus-1-dev libglib2.0-dev libudev-dev libical-dev libreadline-dev
+</code></pre>
+</li>
+<li>
+<p>Затем соберите BlueZ со стандартной конфигурацией:</p>
+<pre><code>    ./configure
+</code></pre>
+<p>Это должно создать конфигурацию без ошибок. Если есть ошибки, вероятно, что-то пошло не так с указанными выше зависимостями и установкой библиотеки.
+<br>
+<br></p>
+</li>
+<li>
+<p>Начнем компиляцию стандартной make:</p>
+<pre><code>    make
+</code></pre>
+</li>
+<li>
+<p>Это займет около 20 минут. Затем установите его с помощью</p>
+<pre><code>    sudo make install
+</code></pre>
+</li>
 </ul>
-<h2 id="project-layout">Project layout</h2>
+<h2 id="_2">Запуск / остановка / включение / отключение службы</h2>
+<ul>
+<li>
+<p>Поскольку системная служба на диске изменилась с нашей сборкой, перезагрузите службу с помощью</p>
+<pre><code>    sudo systemctl daemon-reload
+</code></pre>
+</li>
+<li>
+<p>Используйте следующее, чтобы запустить или остановить службу:</p>
+<pre><code>    sudo systemctl start bluetooth 
+    sudo systemctl stop bluetooth
+</code></pre>
+</li>
+<li>
+<p>Для получения статуса услуги используется следующее:</p>
+<pre><code>    systemctl status bluetooth
+</code></pre>
+</li>
+<li>
+<p>Для автоматического включения службы при запуске системы используйте</p>
+<pre><code>    sudo systemctl enable bluetooth
+</code></pre>
+</li>
+<li>
+<p>Это можно снова отключить с помощью</p>
+<pre><code>    sudo systemctl disable bluetooth
+</code></pre>
+</li>
+</ul>
               
             </div>
           </div>
@@ -117,8 +183,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="RORW_Raspberry4.html" class="btn btn-neutral float-right" title="Настройка RO-RW в Raspbian Buster">Next <span class="icon icon-circle-arrow-right"></span></a>
       
+        <a href="SetUpQt.html" class="btn btn-neutral" title="Настройка Qt 5"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -144,8 +210,8 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
+        <span><a href="SetUpQt.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-        <span style="margin-left: 15px"><a href="RORW_Raspberry4.html" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
