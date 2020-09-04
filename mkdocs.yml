@@ -6,6 +6,7 @@ nav:
         - 'WriteFolder.md'
         - 'SetUpQt.md'
         - 'SetUpBluetooth.md'
+        - 'SetUpScreenAndFixStyles.md'
 use_directory_urls: false
 theme:  readthedocs
 

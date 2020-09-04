@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Настройка Qt 5 - RaspiDevelopment</title>
+  <title>Настройка экрана и правка стилей - RaspiDevelopment</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 Qt 5";
-    var mkdocs_page_input_path = "SetUpQt.md";
+    var mkdocs_page_name = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u044d\u043a\u0440\u0430\u043d\u0430 \u0438 \u043f\u0440\u0430\u0432\u043a\u0430 \u0441\u0442\u0438\u043b\u0435\u0439";
+    var mkdocs_page_input_path = "SetUpScreenAndFixStyles.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -57,11 +57,17 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="WriteFolder.html">Настройка WriteFolder и USB</a>
                     </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="SetUpQt.html">Настройка Qt 5</a>
+                    <li class="toctree-l1"><a class="reference internal" href="SetUpQt.html">Настройка Qt 5</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="SetUpBluetooth.html">Настройка BlueZ(Bluetooth)</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="SetUpScreenAndFixStyles.html">Настройка экрана и правка стилей</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="SetUpScreenAndFixStyles.html">Настройка экрана и правка стилей</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">Настройка экрана</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">Правка стилей</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
       </div>
@@ -89,7 +95,7 @@
         
       
     
-    <li>Настройка Qt 5</li>
+    <li>Настройка экрана и правка стилей</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -100,22 +106,27 @@
           <div role="main">
             <div class="section">
               
-                <p># Настройка Qt 5</p>
+                <h1 id="_1">Настройка экрана и правка стилей</h1>
+<h2 id="_2">Настройка экрана</h2>
 <ul>
 <li>
-<p><b>Устанавливаем Qt 5. Для этого вводим команды:</b></p>
-<pre><code>sudo apt-get install qt5-default
-sudo apt-get install qtcreator
+<p>В файл boot/config.txt добавить:</p>
+<pre><code>    max_usb_current=1
+    hdmi_group=2
+    hdmi_mode=87
+    hdmi_cvt 1024 600 60 6 0 0 0
 </code></pre>
 </li>
 <li>
-<p><b>Докачиваем библиотеки</b></p>
-<pre><code>apt-get install build-essential libfontconfig1-dev libdbus-1-dev libfreetype6-dev libicu-dev libinput-dev libxkbcommon-dev libsqlite3-dev libssl-dev libpng-dev libjpeg-dev libglib2.0-dev libraspberrypi-dev
-sudo apt install libqt5bluetooth5
-
-sudo apt-get update --fix-missing
-apt-get install qtconnectivity5-dev
-sudo apt-get install qtconnectivity5-dev
+<p>В командную строку ввести:</p>
+<pre><code>    sudo apt-get install xserver-xorg-input-evdev
+    sudo mv /usr/share/X11/xorg.conf.d/40-libinput.conf /usr/share/X11/xorg.conf.d/40-libinput.conf_bak
+</code></pre>
+</li>
+</ul>
+<h2 id="_3">Правка стилей</h2>
+<ul>
+<li>Добавить в файл Widget.qss стиль: <pre><code>    QStatusBar::item { border: 0px solid black };
 </code></pre>
 </li>
 </ul>
@@ -126,10 +137,8 @@ sudo apt-get install qtconnectivity5-dev
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="SetUpBluetooth.html" class="btn btn-neutral float-right" title="Настройка BlueZ(Bluetooth)">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-      
-        <a href="WriteFolder.html" class="btn btn-neutral" title="Настройка WriteFolder и USB"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="SetUpBluetooth.html" class="btn btn-neutral" title="Настройка BlueZ(Bluetooth)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -155,10 +164,8 @@ sudo apt-get install qtconnectivity5-dev
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="WriteFolder.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="SetUpBluetooth.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-      
-        <span style="margin-left: 15px"><a href="SetUpBluetooth.html" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
