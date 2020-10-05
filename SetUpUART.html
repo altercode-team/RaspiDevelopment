@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Настройка UART - RaspiDevelopment</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 UART";
+    var mkdocs_page_input_path = "SetUpUART.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> RaspiDevelopment</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="index.html">Главная</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Raspbian</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="RORW_Raspberry4.html">Настройка RO-RW в Raspbian Buster</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="WriteFolder.html">Настройка WriteFolder и USB</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="SetUpQt.html">Настройка Qt 5</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="SetUpBluetooth.html">Настройка BlueZ(Bluetooth)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="SetUpScreenAndFixStyles.html">Настройка экрана и правка стилей</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="SetUpUART.html">Настройка UART</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#serial-port">Настройка Serial Port</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#uart_1">UART и дерево устройств</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">RaspiDevelopment</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Raspbian &raquo;</li>
+        
+      
+    
+    <li>Настройка UART</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="uart">Настройка UART</h1>
+<h2 id="serial-port">Настройка Serial Port</h2>
+<p>Настройка UART на Raspberry Pi
+По умолчанию последовательный порт на Raspberry Pi настроен как консольный порт для связи с ОС Linux. Если вы хотите использовать этот последовательный порт, вы должны отключить ОС от использования этого порта.</p>
+<p>В Raspberry Pi введите следующую команду в окне терминала, чтобы включить UART и отключить консоль на последовательный порт,</p>
+<pre><code>    sudo raspi-config
+</code></pre>
+<ul>
+<li><b>Выберите «Interfacing Options»</b></li>
+</ul>
+<p><img alt="Screenshot" src="image/InterfacingOptions.png" /></p>
+<ul>
+<li><b>После «Interfacing Options» выберите «Serial», чтобы включить UART</b></li>
+</ul>
+<p><img alt="Screenshot" src="image/Serial.png" /></p>
+<ul>
+<li><b>Затем выберите «No», чтобы отключить консоль на последовательный порт</b></li>
+</ul>
+<p><img alt="Screenshot" src="image/No.png" /></p>
+<ul>
+<li><b>В конце попросит включить аппаратный последовательный порт, выберите «Да»</b></li>
+</ul>
+<p><img alt="Screenshot" src="image/HardwareSerialPort.png" /></p>
+<ul>
+<li><b>Всё, UART включен, консоль отключена</b></li>
+</ul>
+<p><img alt="Screenshot" src="image/UARTon.png" /></p>
+<h2 id="uart_1">UART и дерево устройств</h2>
+<p>Различные определения оверлея в дереве устройств UART можно найти в дереве ядра GitHub . Два самых полезных оверлея - это <em>disable-bt</em> и <em>miniuart-bt</em>.</p>
+<p><em>disable-bt</em> отключает устройство Bluetooth и делает первый PL011 (UART0) основным UART. Вы также должны отключить системную службу, которая инициализирует модем, чтобы он не подключался к UART, используя </p>
+<pre><code>    sudo systemctl disable hciuart.
+</code></pre>
+<p><em>miniuart-bt</em> переключает функцию Bluetooth на использование мини-UART и делает первый PL011 (UART0) первичным UART. Обратите внимание, что это может снизить максимально используемую скорость передачи данных (см. Ограничения мини-UART ниже). Вы также должны установить тактовую частоту ядра VPU на фиксированную частоту с помощью <em>force_turbo=1</em> или <em>core_freq=250</em>.</p>
+<p>В таких надписях <em>uart2</em>, <em>uart3</em>, <em>uart4</em> и <em>uart5</em> используются для того, чтобы четыре дополнительных UARTs на Pi 4. Существует и другие UART-специфические накладки в папке. См. <em>/boot/overlays/README</em> Подробные сведения о наложениях дерева устройств или запустите <em>dtoverlay -h overlay-name</em> для получения описаний и информации об использовании.</p>
+<p>Полные инструкции по использованию наложений дерева устройств см. На этой странице . Вкратце, добавьте строку в <em>config.</em> файл, чтобы применить наложение дерева устройств. Обратите внимание, что <em>-overlay.dts</em> часть имени файла удалена. Например:</p>
+<pre><code>    dtoverlay=disable-bt
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="SetUpScreenAndFixStyles.html" class="btn btn-neutral" title="Настройка экрана и правка стилей"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="SetUpScreenAndFixStyles.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
