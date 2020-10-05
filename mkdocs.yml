@@ -7,7 +7,9 @@ nav:
         - 'SetUpQt.md'
         - 'SetUpBluetooth.md'
         - 'SetUpScreenAndFixStyles.md'
+        - 'SetUpUART.md'
 use_directory_urls: false
+
 theme:  readthedocs
 
     
