@@ -8,6 +8,8 @@ nav:
         - 'SetUpBluetooth.md'
         - 'SetUpScreenAndFixStyles.md'
         - 'SetUpUART.md'
+        - 'SetUpTwoScreens.md'
+
 use_directory_urls: false
 
 theme:  readthedocs
