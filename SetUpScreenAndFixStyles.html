@@ -112,7 +112,61 @@
 <h2 id="_2">Настройка экрана</h2>
 <ul>
 <li>
-<p>В файл boot/config.txt добавить:</p>
+<p><b>Поворот экрана для Raspberry Pi 4 (Так не сохраняется)</b></p>
+<p>Из-за нового видеодрайвера, используемого Raspberry Pi 4, вы не можете повернуть экран, используя старый метод /boot/config.txt.</p>
+<p>Если вы хотите повернуть экран на Pi 4, вам следует использовать инструмент настройки экрана, так как его гораздо проще использовать.</p>
+<p>Вместо этого вам нужно будет использовать команду xrandr.</p>
+<p>В Терминале Raspberry Pi выполните одну из следующих команд.</p>
+<p>Если вы хотите, чтобы поворот повлиял на второй слот HDMI, попробуйте использовать HDMI-2 вместо HDMI-1 в приведенных ниже командах.</p>
+<pre><code>    DISPLAY =: 0 xrandr –output HDMI-1 –rotate normal
+</code></pre>
+<p>Эта команда восстанавливает нормальное вращение.</p>
+<pre><code>    DISPLAY =: 0 xrandr –output HDMI-1 – повернуть влево
+</code></pre>
+<p>Приведенная выше команда поворачивает выход монитора влево. Это эквивалент поворота на 90 градусов.</p>
+<pre><code>    DISPLAY =: 0 xrandr –output HDMI-1 – повернуть вправо
+</code></pre>
+<p>Эта команда поворачивает экран вправо. Эта команда похожа на поворот экрана на 270 градусов.</p>
+<pre><code>    DISPLAY =: 0 xrandr –output HDMI-1 –rotate инвертированный
+</code></pre>
+<p>Эта последняя команда перевернет экран. Это похоже на поворот экрана на 180 градусов. <br />
+<br>
+<br></p>
+</li>
+<li>
+<p><b>Рабочий вариант повора экрана</b> </p>
+<pre><code>    sudo arandr
+</code></pre>
+</li>
+<li>
+<p><b> Для поворота тачпада</b>          </p>
+<p>В файл /usr/share/X11/xorg.conf.d/40-libinput.conf</p>
+<pre><code>    Section "InputClass"
+        Identifier "libinput touchpad catchall"
+        MatchIsTouchpad "on"
+        Option "CalibrationMatrix" "1 0 0 0 1 0 0 0 1"
+        MatchDevicePath "/dev/input/event*"
+        Driver "libinput"
+    EndSection
+
+    Section "InputClass"
+            Identifier "libinput touchscreen catchall"
+            MatchIsTouchscreen "on"
+            MatchDevicePath "/dev/input/event*"
+            Driver "libinput"
+            Option "TransformationMatrix" "1 0 0 0 1 0 0 0 1"
+            Option "SwapAxes" "true"
+            Option "InvertX" "true"
+            Option "InvertY" "true"
+    EndSection
+</code></pre>
+<p>Менять необходимо обе строки: (Нормальная ориентация)</p>
+<pre><code>    Option "CalibrationMatrix" "1 0 0 0 1 0 0 0 1"
+    Option "TransformationMatrix" "1 0 0 0 1 0 0 0 1"
+</code></pre>
+</li>
+<li>
+<p><b>В файл boot/config.txt добавить:</b></p>
 <pre><code>    max_usb_current=1
     hdmi_group=2
     hdmi_mode=87
@@ -120,7 +174,7 @@
 </code></pre>
 </li>
 <li>
-<p>В командную строку ввести:</p>
+<p><b>В командную строку ввести:</p>
 <pre><code>    sudo apt-get install xserver-xorg-input-evdev
     sudo mv /usr/share/X11/xorg.conf.d/40-libinput.conf /usr/share/X11/xorg.conf.d/40-libinput.conf_bak
 </code></pre>
@@ -128,7 +182,7 @@
 </ul>
 <h2 id="_3">Правка стилей</h2>
 <ul>
-<li>Добавить в файл Widget.qss стиль: <pre><code>    QStatusBar::item { border: 0px solid black };
+<li><b>Добавить в файл Widget.qss стиль: </b><pre><code>    QStatusBar::item { border: 0px solid black };
 </code></pre>
 </li>
 </ul>
