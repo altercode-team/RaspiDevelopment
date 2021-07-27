@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Настройка Qt 5 - RaspiDevelopment</title>
+  <title>Настройка двух мониторов - RaspiDevelopment</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 Qt 5";
-    var mkdocs_page_input_path = "SetUpQt.md";
+    var mkdocs_page_name = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u0434\u0432\u0443\u0445 \u043c\u043e\u043d\u0438\u0442\u043e\u0440\u043e\u0432";
+    var mkdocs_page_input_path = "SetUpTwoScreens.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -56,7 +56,7 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="WriteFolder.html">Настройка WriteFolder и USB</a>
                     </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="SetUpQt.html">Настройка Qt 5</a>
+                    <li class="toctree-l1"><a class="reference internal" href="SetUpQt.html">Настройка Qt 5</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="SetUpBluetooth.html">Настройка BlueZ(Bluetooth)</a>
                     </li>
@@ -64,7 +64,11 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="SetUpUART.html">Настройка UART</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="SetUpTwoScreens.html">Настройка двух мониторов</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="SetUpTwoScreens.html">Настройка двух мониторов</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">Настройка тачпада для работы только с одним монитором из двух</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
       </div>
@@ -92,7 +96,7 @@
         
       
     
-    <li>Настройка Qt 5</li>
+    <li>Настройка двух мониторов</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -104,24 +108,23 @@
           <div role="main">
             <div class="section">
               
-                <p># Настройка Qt 5</p>
-<ul>
-<li>
-<p><b>Устанавливаем Qt 5. Для этого вводим команды:</b></p>
-<pre><code>sudo apt-get install qt5-default
-sudo apt-get install qtcreator
+                <h1 id="_1">Настройка двух мониторов</h1>
+<p>Сами мониторы работаю без настроек. Но тачпад считает оба экрана за полотно.</p>
+<h2 id="_2">Настройка тачпада для работы только с одним монитором из двух</h2>
+<p>Прежде всего, нам нужно проверить имя дисплея с помощью следующей команды:</p>
+<pre><code>    xrandr
 </code></pre>
-</li>
-<li>
-<p><b>Докачиваем библиотеки</b></p>
-<pre><code>sudo apt-get install build-essential libfontconfig1-dev libdbus-1-dev libfreetype6-dev libicu-dev libinput-dev libxkbcommon-dev libsqlite3-dev libssl-dev libpng-dev libjpeg-dev libglib2.0-dev libraspberrypi-dev libqt5serialport5-dev
-sudo apt install libqt5bluetooth5
-
-sudo apt-get update --fix-missing
-sudo apt-get install qtconnectivity5-dev
+<p>Для меня это было так HDMI-1</p>
+<p>Затем нам нужно сделать то же самое для нашего сенсорного ввода:</p>
+<pre><code>    xinput
 </code></pre>
-</li>
-</ul>
+<p>Для меня это было так 9.</p>
+<p>Затем, чтобы собрать все вместе, мы сопоставляем ввод с желаемым дисплеем:</p>
+<p>xinput map-to-output <input_device_id> <display_device_id>
+Так что в моем случае это означало</p>
+<pre><code>    xinput map-to-output 9 HDMI-1.
+</code></pre>
+<p>Эта команда должна выполняться каждый раз при загрузке устройства. </p>
               
             </div>
           </div>
@@ -129,10 +132,8 @@ sudo apt-get install qtconnectivity5-dev
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="SetUpBluetooth.html" class="btn btn-neutral float-right" title="Настройка BlueZ(Bluetooth)">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-      
-        <a href="WriteFolder.html" class="btn btn-neutral" title="Настройка WriteFolder и USB"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="SetUpUART.html" class="btn btn-neutral" title="Настройка UART"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -158,10 +159,8 @@ sudo apt-get install qtconnectivity5-dev
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="WriteFolder.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="SetUpUART.html" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-    
-      <span><a href="SetUpBluetooth.html" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
