@@ -9,6 +9,8 @@ nav:
         - 'SetUpScreenAndFixStyles.md'
         - 'SetUpUART.md'
         - 'SetUpTwoScreens.md'
+    - BU:
+        - 'SetUp_compiler.md'
 
 use_directory_urls: false
 
