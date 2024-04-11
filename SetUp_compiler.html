@@ -9,15 +9,15 @@
   
   
   <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Настройка WriteFolder и USB - RaspiDevelopment</title>
+  <title>Установка компилятора в ubuntu - RaspiDevelopment</title>
   <link rel="stylesheet" href="css/theme.css" />
   <link rel="stylesheet" href="css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 WriteFolder \u0438 USB";
-    var mkdocs_page_input_path = "WriteFolder.md";
+    var mkdocs_page_name = "\u0423\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430 \u043a\u043e\u043c\u043f\u0438\u043b\u044f\u0442\u043e\u0440\u0430 \u0432 ubuntu";
+    var mkdocs_page_input_path = "SetUp_compiler.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -50,16 +50,10 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Raspbian</span></p>
-                <ul class="current">
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="RORW_Raspberry4.html">Настройка RO-RW в Raspbian Buster</a>
                     </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="WriteFolder.html">Настройка WriteFolder и USB</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#writefolder">WriteFolder</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#usb">USB</a>
-    </li>
-    </ul>
+                    <li class="toctree-l1"><a class="reference internal" href="WriteFolder.html">Настройка WriteFolder и USB</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="SetUpQt.html">Настройка Qt 5</a>
                     </li>
@@ -73,8 +67,8 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">BU</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="SetUp_compiler.html">Установка компилятора в ubuntu</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="SetUp_compiler.html">Установка компилятора в ubuntu</a>
                     </li>
                 </ul>
       </div>
@@ -98,11 +92,11 @@
     
       
         
-          <li>Raspbian &raquo;</li>
+          <li>BU &raquo;</li>
         
       
     
-    <li>Настройка WriteFolder и USB</li>
+    <li>Установка компилятора в ubuntu</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -113,63 +107,33 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="writefolder-usb">Настройка WriteFolder и USB</h1>
-<h2 id="writefolder">WriteFolder</h2>
+                <p># Установка компилятора в ubuntu</p>
 <ul>
 <li>
-<p><b>Флешку с образом системы необходимо подсоединить к виртуальной машине с Linux</b></p>
-</li>
-<li>
-<p><b>Устанавливаем и запускаем программу GParted</b></p>
-<pre><code>sudo apt-get install gparted
-sudo gparted
-</code></pre>
-</li>
-<li>
-<p><b>С помощью программы GParted создаем новый раздел</b></p>
+<p><b>Скачиваем и устанавливаем </b></p>
 <ul>
 <li>
-<p>Демонтируем rootfs раздел. Для этого нажимаем на него правой кнопкой мыши, затем выбираем  "Unmount" и оставляем для него 10Гб</p>
+<p>Скачиваем архив:  gcc-arm-none-eabi-4_6-2012q4-20121016.tar.bz2</p>
+<p><code>https://launchpad.net/gcc-arm-embedded/+milestone/4.6-2012-q4-update</code></p>
 </li>
 <li>
-<p>Выбираем в меню "Partition -&gt; New" и создаем новый раздел</p>
+<p>Или с нашего сервера: </p>
+<p><code>smb://10.32.32.7/install/BU_compiler_ATMEL</code></p>
+</li>
+<li>
+<p>Распаковываем tarball в целевую директорию:</p>
+<p><code>cd target_dir &amp;&amp; tar xjf gcc-arm-none-eabi-4_6-2012q4-20121016.tar.bz2</code>        </p>
+</li>
+<li>
+<p>Затем добавляем путь до arm-none-eabi-gcc(/target_dir/gcc-arm-none-eabi-4_6-2012q4/bin) в PATH(в файл):</p>
+<p><code>sudo nano /etc/environment</code></p>
+<p><code>sudo reboot</code></p>
+</li>
+<li>
+<p>Для проверки пишем:</p>
+<p><code>arm-none-eabi-gcc --version</code></p>
 </li>
 </ul>
-</li>
-<li>
-<p><b>Переставляем флешку в raspberry 4 и добавляем в etc/fstab строку:</b></p>
-<pre><code>PARTUUID=76661929-03  /home/pi/writefolder       ext4    defaults,noatime     0       2
-</code></pre>
-</li>
-<li>
-<p><b>И даем полные права на папку</b></p>
-<pre><code>    sudo chmod 1775 home/pi/writefolder
-</code></pre>
-</li>
-<li>
-<p><b>Для переноса ПО Запускаем старый аппарат и с него запускаем скрипт:</b></p>
-<ul>
-<li>sourceDir - директория, которую необходимо перенести</li>
-<li>deployDir - директория, в которую необходимо перенести</li>
-<li>ip - указываем адрес нового аппарата</li>
-<li>rsync - команда, которая выполняет синхронизация папки со старого аппарата в новый (копирует) <pre><code>sourceDir=/home/pi/writefolder/
-ip=10.32.32.132 
-deployDir=/home/pi/writefolder/
-rsync -rt --recursive -O $sourceDir pi@$ip:$deployDir
-</code></pre>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="usb">USB</h2>
-<ul>
-<li>
-<p><b>Для монтирования флешки в /home/pi/writefolder/usb в файл etc/fstab нужно записать строку:</b></p>
-<pre><code>/dev/sda1 /home/pi/writefolder/usb/mntusb    auto    rw,nofail,uid=pi,gid=pi,noatime 0       0
-</code></pre>
-</li>
-<li>
-<p><b>Затем необходимо убрать все галочки в "pcmanfm". Для этого: Edit -&gt; Preferences -&gt; Volume Management.</b></p>
 </li>
 </ul>
               
@@ -179,10 +143,8 @@ rsync -rt --recursive -O $sourceDir pi@$ip:$deployDir
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="SetUpQt.html" class="btn btn-neutral float-right" title="Настройка Qt 5">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-      
-        <a href="RORW_Raspberry4.html" class="btn btn-neutral" title="Настройка RO-RW в Raspbian Buster"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="SetUpTwoScreens.html" class="btn btn-neutral" title="Настройка двух мониторов"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -208,10 +170,8 @@ rsync -rt --recursive -O $sourceDir pi@$ip:$deployDir
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="RORW_Raspberry4.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="SetUpTwoScreens.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-      
-        <span style="margin-left: 15px"><a href="SetUpQt.html" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
