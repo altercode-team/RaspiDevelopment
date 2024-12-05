@@ -9,6 +9,7 @@ nav:
         - 'SetUpScreenAndFixStyles.md'
         - 'SetUpUART.md'
         - 'SetUpTwoScreens.md'
+        - 'SetUpEETI_TouchScreen.md'
     - BU:
         - 'SetUp_compiler.md'
 
