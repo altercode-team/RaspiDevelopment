@@ -9,15 +9,15 @@
   
   
   <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Настройка двух мониторов - RaspiDevelopment</title>
+  <title>Настройка eGalaxTouch EETII - RaspiDevelopment</title>
   <link rel="stylesheet" href="css/theme.css" />
   <link rel="stylesheet" href="css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 \u0434\u0432\u0443\u0445 \u043c\u043e\u043d\u0438\u0442\u043e\u0440\u043e\u0432";
-    var mkdocs_page_input_path = "SetUpTwoScreens.md";
+    var mkdocs_page_name = "\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0430 eGalaxTouch EETII";
+    var mkdocs_page_input_path = "SetUpEETI_TouchScreen.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -63,13 +63,11 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="SetUpUART.html">Настройка UART</a>
                     </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="SetUpTwoScreens.html">Настройка двух мониторов</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">Настройка тачпада для работы только с одним монитором из двух</a>
-    </li>
-    </ul>
+                    <li class="toctree-l1"><a class="reference internal" href="SetUpTwoScreens.html">Настройка двух мониторов</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="SetUpEETI_TouchScreen.html">Настройка eGalaxTouch EETII</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="SetUpEETI_TouchScreen.html">Настройка eGalaxTouch EETII</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">BU</span></p>
@@ -102,7 +100,7 @@
         
       
     
-    <li>Настройка двух мониторов</li>
+    <li>Настройка eGalaxTouch EETII</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -113,23 +111,8 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">Настройка двух мониторов</h1>
-<p>Сами мониторы работаю без настроек. Но тачпад считает оба экрана за полотно.</p>
-<h2 id="_2">Настройка тачпада для работы только с одним монитором из двух</h2>
-<p>Прежде всего, нам нужно проверить имя дисплея с помощью следующей команды:</p>
-<pre><code>    xrandr
-</code></pre>
-<p>Для меня это было так HDMI-1</p>
-<p>Затем нам нужно сделать то же самое для нашего сенсорного ввода:</p>
-<pre><code>    xinput
-</code></pre>
-<p>Для меня это было так 9.</p>
-<p>Затем, чтобы собрать все вместе, мы сопоставляем ввод с желаемым дисплеем:</p>
-<p>xinput map-to-output <input_device_id> <display_device_id>
-Так что в моем случае это означало</p>
-<pre><code>    xinput map-to-output 9 HDMI-1.
-</code></pre>
-<p>Эта команда должна выполняться каждый раз при загрузке устройства. </p>
+                <h1 id="egalaxtouch-eetii">Настройка eGalaxTouch EETII</h1>
+<p><a href="https://disk.yandex.ru/i/vc9maeYTKNtOrQ">datasheet</a></p>
               
             </div>
           </div>
@@ -137,10 +120,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="SetUpEETI_TouchScreen.html" class="btn btn-neutral float-right" title="Настройка eGalaxTouch EETII">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="SetUp_compiler.html" class="btn btn-neutral float-right" title="Установка компилятора в ubuntu">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="SetUpUART.html" class="btn btn-neutral" title="Настройка UART"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="SetUpTwoScreens.html" class="btn btn-neutral" title="Настройка двух мониторов"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -166,10 +149,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="SetUpUART.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="SetUpTwoScreens.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="SetUpEETI_TouchScreen.html" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="SetUp_compiler.html" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
